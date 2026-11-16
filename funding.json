@@ -3,27 +3,38 @@
     "version": "v1.1.0",
     "entity": {
         "type": "individual",
-        "role": "contributor",
+        "role": "owner",
         "name": "Deepak Ezhumalai",
         "email": "y12med@gmail.com",
-        "description": "Independent machine-learning researcher in Chennai, India. I work in the open: pre-registered experiments, released code and models, and negative results reported alongside positive ones.\n\nSince November 2026 I have contributed cross-scroll ink detection to ScrollPrize/villa, the open-source (MIT) toolkit of the Vesuvius Challenge, which reads carbonised Herculaneum papyrus scrolls from X-ray CT scans. Pull request ScrollPrize/villa#2512 adds a scan-type conversion for training, a self-training command and their tests and documentation. I published the checkpoints on Hugging Face under CC BY-NC 4.0, the licence of the training data.\n\nOther public work: VersionOutcomes (Apache-2.0), a benchmark of real before/after outcomes of Python function calls across library commits, and an analysis of ARC-AGI-3 agent results. Code: https://github.com/DeepakEz",
+        "description": "Independent machine-learning researcher in Chennai, India. I work in the open: pre-registered experiments, released code and data, and negative results reported alongside positive ones.\n\nI created and maintain VersionOutcomes (Apache-2.0), the project this application is for.\n\nOther released research software: since November 2026 I have contributed cross-scroll ink detection to ScrollPrize/villa, the MIT-licensed toolkit of the Vesuvius Challenge for reading carbonised Herculaneum scrolls from X-ray CT (pull request ScrollPrize/villa#2512, open). Another participant ran one released checkpoint on one segment from a scroll excluded from that model's training and conversion fitting, and the gain repeated. I also published an analysis of ARC-AGI-3 agent results. Code: https://github.com/DeepakEz",
         "webpageUrl": {
             "url": "https://github.com/DeepakEz"
         }
     },
     "projects": [
         {
-            "guid": "vesuvius-ink-cross-scroll",
-            "name": "Cross-scroll ink detection for the Vesuvius Challenge toolkit (villa)",
-            "description": "Ink-detection models for the Herculaneum scrolls work well on the scroll they were trained on and much worse on a new one. The scrolls still unread were scanned natively, while most labelled 9 um training data are renders pooled from finer scans. My contribution to villa targets that gap.\n\nWhat exists today:\n- A fitted pooled-to-native scan conversion applied during training. With PHerc 0139 held out of fitting and training, it raised native ROC-AUC there by +0.024 without mirror inference and +0.011 with it, across three matched seeds.\n- A self-training command using confidence-filtered pseudo-labels. It added +0.018 ROC-AUC with mirror inference on segments excluded from adaptation (three seeds, 13 of 15 segment-seed pairs).\n- Released checkpoints, configs and model cards on Hugging Face.\n- Outside use: another participant ran the released scan-conversion checkpoint on PHerc 1447 w060, a scroll I never used, and the gain repeated (0.711 vs 0.672-0.687 for three baseline seeds).\n\nLimits, stated plainly: the pull request is open, not merged. On PHerc 1447 a different public reader (v8-in) still scores higher (0.804). My models do not yet make letters readable on unread scrolls.",
+            "guid": "versionoutcomes",
+            "name": "VersionOutcomes",
+            "description": "VersionOutcomes is an open-source tool that tests whether AI coding models can predict the actual result of a code change, using executable examples from real Python library histories.\n\nIt mines every function whose body changed in a library's Git history, runs that function's documentation examples and the calls in the same commit's new regression tests in both the parent and the changed snapshot, and records each call's outcome (return type and value, or exception). A model is shown the before and after source and asked what each version returns and whether the result changed; a scorer compares its answer with the executed outcome.\n\nWhat exists today (scripts, not yet a packaged command): 16 libraries mined, 1,973 executed outcome pairs, an 82-pair balanced evaluation set, the scorer, every prompt and raw model answer, and results for the five Gemma 4 sizes. On that set Gemma 4 12B detected 31 of 42 real changes with two false alarms but predicted the new outcome for only 19 of the 42. Any reported number can be recomputed from the saved answers.\n\nLimits, stated plainly: published in November 2026; no outside users yet. Mining executes third-party library code and needs a sandbox. The evaluation set is small and Python-only.",
             "webpageUrl": {
-                "url": "https://github.com/ScrollPrize/villa/pull/2512"
+                "url": "https://github.com/DeepakEz/versionoutcomes"
             },
             "repositoryUrl": {
-                "url": "https://github.com/DeepakEz/villa/tree/ink-cross-scroll"
+                "url": "https://github.com/DeepakEz/versionoutcomes"
             },
-            "licenses": ["spdx:MIT", "spdx:CC-BY-NC-4.0"],
-            "tags": ["machine-learning", "computer-vision", "cultural-heritage", "digital-humanities", "scientific-computing", "open-data", "pytorch"]
+            "licenses": [
+                "spdx:Apache-2.0"
+            ],
+            "tags": [
+                "developer-tools",
+                "testing",
+                "machine-learning",
+                "benchmark",
+                "python",
+                "llm",
+                "code-analysis",
+                "open-data"
+            ]
         }
     ],
     "funding": {
@@ -40,31 +51,25 @@
                 "guid": "maintainer-time-6m",
                 "status": "active",
                 "name": "Maintainer time, six months",
-                "description": "Rs 40,000 per month for six months of part-time work (about 20 hours a week) on the milestones below, paid in quarterly tranches. Q1 (months 1-3): M1, turn PR #2512 into reviewable upstream changes (address reviewer feedback, split scan conversion and self-training into separate PRs with tests, report adapted and unadapted segments separately). M2, release a reproducible leave-one-scroll-out ink benchmark script with results for every scroll that has verified labels (PHerc 0139, 1447, 0841, 0343P), including public readers that beat mine. Q2 (months 4-6): M3, test whether the scan conversion helps the stronger 8 um model family, and release checkpoints and model cards whichever way it comes out. M4, a tutorial that reproduces the cross-scroll result on one 16 GB consumer GPU. Each quarter: a public progress update on the FOSS United forum; at least one talk at a FOSS United meetup.",
+                "description": "Rs 40,000 per month for six months of part-time work (about 20 hours a week, roughly Rs 460 an hour) on VersionOutcomes, paid in quarterly tranches.\n\nFrom month 1: recruit and support a few independent Python maintainers as pilot users, and record where the tool helps them and where it fails. I can commit to recruiting and supporting them, not to their adoption.\nMonths 1-2: package the existing scripts into one documented command (mine, execute, build the evaluation set, query a model, score); publish reproducible pilot examples and a catalogue of failure cases.\nMonths 3-4: extend to a set of additional libraries fixed and published before mining, with executable before/after verification and checks for duplicate cases and ambiguous outputs; report the cost per validated case.\nMonths 5-6: fix the usability problems pilot users hit, publish what they found useful or not, and publish reproducible model comparisons.\n\nEach quarter: one public engagement (a FOSS United forum update, a blog post or, subject to organiser availability, a meetup talk).\n\nOther funding, disclosed: I have applied for a Sentient Foundation grant and Snorkel Open Benchmarks support (in kind) for this project, OpenAI research credits for a study that uses it, and entered the paper in a Kaggle paper-track competition. All are undecided and contingent. I will disclose any award received during this project and agree budget changes with FOSS United so that no expense is charged twice.",
                 "amount": 240000,
                 "currency": "INR",
                 "frequency": "one-time",
-                "channels": ["bank-in"]
+                "channels": [
+                    "bank-in"
+                ]
             },
             {
                 "guid": "compute-6m",
                 "status": "active",
-                "name": "GPU compute and electricity, six months",
-                "description": "Multi-seed leave-one-scroll-out training beyond what two local consumer GPUs can run in six months (rented GPU hours, priced at time of use), plus electricity for the local GPUs. I will also apply for subsidised IndiaAI compute to stretch this.",
-                "amount": 45000,
+                "name": "Model-evaluation compute (usage budget)",
+                "description": "Ceiling of Rs 20,000 for up to 100 rented GPU-hours or equivalent API credits, for open models too large for my local GPU or free Kaggle GPUs. Basis: four Gemma 4 sizes on the 82-pair set took about 1.4 hours on one free Kaggle T4 x2 session; the expanded set and more models need an estimated 50-100 GPU-hours. Usage is logged and reported each quarter; unused funds will be returned or reallocated with FOSS United's agreement. No hosting cost: code and data are on GitHub.",
+                "amount": 20000,
                 "currency": "INR",
                 "frequency": "one-time",
-                "channels": ["bank-in"]
-            },
-            {
-                "guid": "storage",
-                "status": "active",
-                "name": "Local storage for scan data",
-                "description": "A 2 TB SSD for cached scroll renders and training data (one segment render is about 25 GB).",
-                "amount": 15000,
-                "currency": "INR",
-                "frequency": "one-time",
-                "channels": ["bank-in"]
+                "channels": [
+                    "bank-in"
+                ]
             }
         ]
     }
