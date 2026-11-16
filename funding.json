@@ -1,0 +1,71 @@
+{
+    "$schema": "https://fundingjson.org/schema/v1.1.0.json",
+    "version": "v1.1.0",
+    "entity": {
+        "type": "individual",
+        "role": "contributor",
+        "name": "Deepak Ezhumalai",
+        "email": "y12med@gmail.com",
+        "description": "Independent machine-learning researcher in Chennai, India. I work in the open: pre-registered experiments, released code and models, and negative results reported alongside positive ones.\n\nSince November 2026 I have contributed cross-scroll ink detection to ScrollPrize/villa, the open-source (MIT) toolkit of the Vesuvius Challenge, which reads carbonised Herculaneum papyrus scrolls from X-ray CT scans. Pull request ScrollPrize/villa#2512 adds a scan-type conversion for training, a self-training command and their tests and documentation. I published the checkpoints on Hugging Face under CC BY-NC 4.0, the licence of the training data.\n\nOther public work: VersionOutcomes (Apache-2.0), a benchmark of real before/after outcomes of Python function calls across library commits, and an analysis of ARC-AGI-3 agent results. Code: https://github.com/DeepakEz",
+        "webpageUrl": {
+            "url": "https://github.com/DeepakEz"
+        }
+    },
+    "projects": [
+        {
+            "guid": "vesuvius-ink-cross-scroll",
+            "name": "Cross-scroll ink detection for the Vesuvius Challenge toolkit (villa)",
+            "description": "Ink-detection models for the Herculaneum scrolls work well on the scroll they were trained on and much worse on a new one. The scrolls still unread were scanned natively, while most labelled 9 um training data are renders pooled from finer scans. My contribution to villa targets that gap.\n\nWhat exists today:\n- A fitted pooled-to-native scan conversion applied during training. With PHerc 0139 held out of fitting and training, it raised native ROC-AUC there by +0.024 without mirror inference and +0.011 with it, across three matched seeds.\n- A self-training command using confidence-filtered pseudo-labels. It added +0.018 ROC-AUC with mirror inference on segments excluded from adaptation (three seeds, 13 of 15 segment-seed pairs).\n- Released checkpoints, configs and model cards on Hugging Face.\n- Outside use: another participant ran the released scan-conversion checkpoint on PHerc 1447 w060, a scroll I never used, and the gain repeated (0.711 vs 0.672-0.687 for three baseline seeds).\n\nLimits, stated plainly: the pull request is open, not merged. On PHerc 1447 a different public reader (v8-in) still scores higher (0.804). My models do not yet make letters readable on unread scrolls.",
+            "webpageUrl": {
+                "url": "https://github.com/ScrollPrize/villa/pull/2512"
+            },
+            "repositoryUrl": {
+                "url": "https://github.com/DeepakEz/villa/tree/ink-cross-scroll"
+            },
+            "licenses": ["spdx:MIT", "spdx:CC-BY-NC-4.0"],
+            "tags": ["machine-learning", "computer-vision", "cultural-heritage", "digital-humanities", "scientific-computing", "open-data", "pytorch"]
+        }
+    ],
+    "funding": {
+        "channels": [
+            {
+                "guid": "bank-in",
+                "type": "bank",
+                "address": "",
+                "description": "Indian bank account (INR). Details by email."
+            }
+        ],
+        "plans": [
+            {
+                "guid": "maintainer-time-6m",
+                "status": "active",
+                "name": "Maintainer time, six months",
+                "description": "Rs 40,000 per month for six months of part-time work (about 20 hours a week) on the milestones below, paid in quarterly tranches. Q1 (months 1-3): M1, turn PR #2512 into reviewable upstream changes (address reviewer feedback, split scan conversion and self-training into separate PRs with tests, report adapted and unadapted segments separately). M2, release a reproducible leave-one-scroll-out ink benchmark script with results for every scroll that has verified labels (PHerc 0139, 1447, 0841, 0343P), including public readers that beat mine. Q2 (months 4-6): M3, test whether the scan conversion helps the stronger 8 um model family, and release checkpoints and model cards whichever way it comes out. M4, a tutorial that reproduces the cross-scroll result on one 16 GB consumer GPU. Each quarter: a public progress update on the FOSS United forum; at least one talk at a FOSS United meetup.",
+                "amount": 240000,
+                "currency": "INR",
+                "frequency": "one-time",
+                "channels": ["bank-in"]
+            },
+            {
+                "guid": "compute-6m",
+                "status": "active",
+                "name": "GPU compute and electricity, six months",
+                "description": "Multi-seed leave-one-scroll-out training beyond what two local consumer GPUs can run in six months (rented GPU hours, priced at time of use), plus electricity for the local GPUs. I will also apply for subsidised IndiaAI compute to stretch this.",
+                "amount": 45000,
+                "currency": "INR",
+                "frequency": "one-time",
+                "channels": ["bank-in"]
+            },
+            {
+                "guid": "storage",
+                "status": "active",
+                "name": "Local storage for scan data",
+                "description": "A 2 TB SSD for cached scroll renders and training data (one segment render is about 25 GB).",
+                "amount": 15000,
+                "currency": "INR",
+                "frequency": "one-time",
+                "channels": ["bank-in"]
+            }
+        ]
+    }
+}
